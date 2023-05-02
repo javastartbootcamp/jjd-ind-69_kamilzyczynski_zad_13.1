@@ -19,10 +19,10 @@ public class VotingResult {
      * Wstrzymało się: 8.47%
      */
     public void printResults() {
-        int allVotes = votes.size();
-        int votesFor = 0;
-        int votesAgainst = 0;
-        int votesNeutral = 0;
+        double allVotes = votes.size();
+        double votesFor = 0;
+        double votesAgainst = 0;
+        double votesNeutral = 0;
 
         for (Vote vote : votes) {
             if (vote.getVote() == null) {
@@ -33,9 +33,9 @@ public class VotingResult {
                 votesAgainst++;
             }
         }
-        System.out.printf("Głosów za: %.2f%% \n", ((double) votesFor / allVotes * 100));
-        System.out.printf("Głosów przeciw: %.2f%% \n", ((double) votesAgainst / allVotes * 100));
-        System.out.printf("Wstrzymało się: %.2f%% \n", ((double) votesNeutral / allVotes * 100));
+        System.out.printf("Głosów za: %.2f%% \n", (votesFor / allVotes * 100));
+        System.out.printf("Głosów przeciw: %.2f%% \n", (votesAgainst / allVotes * 100));
+        System.out.printf("Wstrzymało się: %.2f%% \n", (votesNeutral / allVotes * 100));
     }
 
     /**

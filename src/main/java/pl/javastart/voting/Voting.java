@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 public class Voting {
 
+    private static final String VOTE_FOR = "z";
+    private static final String VOTE_AGAINST = "p";
+    private static final String VOTE_NEUTRAL = "w";
+
     public static void main(String[] args) {
         List<String> voters = new ArrayList<>();
 
@@ -29,28 +33,19 @@ public class Voting {
     VotingResult executeVoting(List<String> voters, Scanner scanner) {
         List<Vote> votes = new ArrayList<>();
         for (String voter : voters) {
-            boolean correctVote = false;
-            while (!correctVote) {
-                System.out.println("Jak głosuje " + voter + "? (z- za, p - przeciw, w - wstrzymanie się)");
+            boolean correctVote;
+            do {
+                System.out.printf("Jak głosuje %s? (%s - za, %s - przeciw, %s - wstrzymanie się) \n", voter,
+                        VOTE_FOR, VOTE_AGAINST, VOTE_NEUTRAL);
                 String vote = scanner.nextLine();
+                correctVote = true;
                 switch (vote) {
-                    case "z" -> {
-                        Boolean castVote = true;
-                        votes.add(new Vote(voter, castVote));
-                        correctVote = true;
-                    }
-                    case "p" -> {
-                        Boolean castVote = false;
-                        votes.add(new Vote(voter, castVote));
-                        correctVote = true;
-                    }
-                    case "w" -> {
-                        Boolean castVote = null;
-                        votes.add(new Vote(voter, castVote));
-                        correctVote = true;
-                    }
+                    case VOTE_FOR -> votes.add(new Vote(voter, true));
+                    case VOTE_AGAINST -> votes.add(new Vote(voter, false));
+                    case VOTE_NEUTRAL -> votes.add(new Vote(voter, null));
+                    default -> correctVote = false;
                 }
-            }
+            } while (!correctVote);
         }
         return new VotingResult(votes);
     }
